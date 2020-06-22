@@ -8,6 +8,9 @@ Implementation of types utilised internally and externally.
 
 .. py:data:: BridgeDescriptor
    :value: Union[BridgeSummary, PartialBridgeDetails, BridgeDetails, BridgeBandwidth, BridgeClients, BridgeUptime]
+
+.. py:data:: ExitPolicy
+   :value: List[str]
 """
 
 import datetime as dt
@@ -58,12 +61,7 @@ class Flag(Enum):
     VALID = "Valid"
 
 
-@dataclass
-class ExitPolicy:
-    """Representation of relay exit policy."""
-
-    pass
-
+ExitPolicy = List[str]
 
 @dataclass
 class RelaySummary(Deserialisable):
