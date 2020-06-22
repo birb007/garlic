@@ -72,6 +72,12 @@ class ExitPolicy:
         :param accept_policy: Range of ports to accept.
         :param reject_policy: Range of ports to reject.
         """
+        if accept_policy is None:
+            accept_policy = set()
+
+        if reject_policy is None:
+            reject_policy = set()
+
         self.accept_policy = accept_policy
         self.reject_poilcy = reject_policy
 
