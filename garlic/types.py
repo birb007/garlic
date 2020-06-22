@@ -8,9 +8,6 @@ Implementation of types utilised internally and externally.
 
 .. py:data:: BridgeDescriptor
    :value: Union[BridgeSummary, PartialBridgeDetails, BridgeDetails, BridgeBandwidth, BridgeClients, BridgeUptime]
-
-.. py:data:: ExitPolicy
-   :value: List[str]
 """
 
 import datetime as dt
@@ -18,15 +15,17 @@ import datetime as dt
 from abc import ABC, abstractclassmethod
 from dataclasses import dataclass
 from enum import Enum
-from typing import List, TypeVar, Union, Dict, Optional, NewType
+from typing import List, TypeVar, Union, Dict, Optional, NewType, Set
 
 from garlic import utils
+
 
 class Deserialisable(ABC):
     """
     Abstract deserialisable interface for relay/bridge descriptor
     objects.
     """
+
     @abstractclassmethod
     def from_json(cls, json: dict):
         """
@@ -61,7 +60,52 @@ class Flag(Enum):
     VALID = "Valid"
 
 
-ExitPolicy = List[str]
+class ExitPolicy:
+    """
+    Representation of exit policy summaries.
+    """
+
+    def __init__(self, accept_policy: Set[int] = None, reject_policy: Set[int] = None):
+        """
+        Instantiate `ExitPolicy` object.
+
+        :param accept_policy: Range of ports to accept.
+        :param reject_policy: Range of ports to reject.
+        """
+        self.accept_policy = accept_policy
+        self.reject_poilcy = reject_policy
+
+    @classmethod
+    def from_json(cls, json: dict):
+        """
+        Instantiate exit policy with JSON response from the API.
+
+        :param json: Raw JSON response.
+        """
+
+        def _parse_policy(policy):
+            port_range = set()
+            for entry in policy:
+                chunks = [int(chunk) for chunk in entry.split("-") if chunk]
+                if len(chunks) == 1:
+                    port_range.add(chunks[0])
+                else:
+                    port_range.update(set(range(chunks[0], chunks[1])))
+            return port_range
+
+        accept_policy = None
+        reject_policy = None
+
+        if (array := json.get("accept")) :
+            accept_policy = _parse_policy(array)
+        if (array := json.get("reject")) :
+            reject_policy = _parse_policy(array)
+
+        return cls(accept_policy, reject_policy)
+
+    def __repr__(self):
+        return self.__class__.__name__
+
 
 @dataclass
 class RelaySummary(Deserialisable):
@@ -402,6 +446,12 @@ class RelayDetails(RelayDetailsBase):
         )
         json["first_seen"] = utils.decode_utc(json.pop("first_seen"))
         json["last_restarted"] = utils.decode_utc(json.pop("last_restarted"))
+        json["exit_policy_summary"] = ExitPolicy.from_json(
+            json.pop("exit_policy_summary")
+        )
+        json["exit_policy_v6_summary"] = ExitPolicy.from_json(
+            json.pop("exit_policy_v6_summary")
+        )
         return cls(**json)
 
 
@@ -456,6 +506,14 @@ class PartialRelayDetails(RelayDetailsBase):
             json["first_seen"] = utils.decode_utc(json.pop("first_seen"))
         if "last_restarted" in json:
             json["last_restarted"] = utils.decode_utc(json.pop("last_restarted"))
+        if "exit_policy_summary" in json:
+            json["exit_policy_summary"] = ExitPolicy.from_json(
+                json.pop("exit_policy_summary")
+            )
+        if "exit_policy_v6_summary" in json:
+            json["exit_policy_v6_summary"] = ExitPolicy.from_json(
+                json.pop("exit_policy_v6_summary")
+            )
         return cls(**json)
 
 
@@ -578,6 +636,7 @@ class PartialBridgeDetails:
         if "last_restarted" in json:
             json["last_restarted"] = utils.decode_utc(json["last_restarted"])
         return cls(**json)
+
 
 @dataclass
 class BridgeDetails:
