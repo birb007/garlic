@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>garlic.exc &#8212; garlic  documentation</title>
+    <link rel="stylesheet" href="../../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">garlic  documentation</a> &#187;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    
+        <div class="badge">
+            <a href="https://github.com/birb007/garlic/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for garlic.exc</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of exceptions</span>
+
+<span class="sd">..currentmodule:: garlic.exc</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">asks.response_objects</span> <span class="kn">import</span> <span class="n">Response</span>
+
+
+<div class="viewcode-block" id="HTTPError"><a class="viewcode-back" href="../../autogen/garlic.exc.html#garlic.exc.HTTPError">[docs]</a><span class="k">class</span> <span class="nc">HTTPError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base exception for all HTTP related errors.</span>
+
+<span class="sd">    :param response: Response object accompanying the http error.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="o">=</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="BadRequest"><a class="viewcode-back" href="../../autogen/garlic.exc.html#garlic.exc.BadRequest">[docs]</a><span class="k">class</span> <span class="nc">BadRequest</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    400 Bad Request: The request for a known resource could not be processed</span>
+<span class="sd">    because of bad syntax.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="NotFound"><a class="viewcode-back" href="../../autogen/garlic.exc.html#garlic.exc.NotFound">[docs]</a><span class="k">class</span> <span class="nc">NotFound</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    404 Not Available: The request could not be processed because the</span>
+<span class="sd">    requested resource could not be found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="InternalServerError"><a class="viewcode-back" href="../../autogen/garlic.exc.html#garlic.exc.InternalServerError">[docs]</a><span class="k">class</span> <span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    500 Internal Server Error: There is an unspecific problem with the server</span>
+<span class="sd">    which the service operator may not yet be aware of.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ServiceUnavailable"><a class="viewcode-back" href="../../autogen/garlic.exc.html#garlic.exc.ServiceUnavailable">[docs]</a><span class="k">class</span> <span class="nc">ServiceUnavailable</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    503 Service Unavailable: The server is temporarily down for maintenance,</span>
+<span class="sd">    or there is a temporary problem with the server that the service operator</span>
+<span class="sd">    is already aware of.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, birb007.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>garlic.types &#8212; garlic  documentation</title>
+    <link rel="stylesheet" href="../../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    
+    <script src="../../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../../index.html">garlic  documentation</a> &#187;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    
+        <div class="badge">
+            <a href="https://github.com/birb007/garlic/">Fork me on GitHub</a>
+            <img src="../../_static/right-red@2x.png">
+        </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for garlic.types</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of types utilised internally and externally.</span>
+
+<span class="sd">.. currentmodule:: garlic.types</span>
+
+<span class="sd">.. py:data:: RelayDescriptor</span>
+<span class="sd">   :value: Union[RelaySummary, PartialRelayDetails, RelayDetails, RelayBandwidth, RelayWeight, RelayUptime]</span>
+
+<span class="sd">.. py:data:: BridgeDescriptor</span>
+<span class="sd">   :value: Union[BridgeSummary, PartialBridgeDetails, BridgeDetails, BridgeBandwidth, BridgeClients, BridgeUptime]</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractclassmethod</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">NewType</span><span class="p">,</span> <span class="n">Set</span>
+
+<span class="kn">from</span> <span class="nn">garlic</span> <span class="kn">import</span> <span class="n">utils</span>
+
+
+<div class="viewcode-block" id="Deserialisable"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.Deserialisable">[docs]</a><span class="k">class</span> <span class="nc">Deserialisable</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract deserialisable interface for relay/bridge descriptor</span>
+<span class="sd">    objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Deserialisable.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.Deserialisable.from_json">[docs]</a>    <span class="nd">@abstractclassmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deserialise JSON into an instance of the implementing class.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div></div>
+
+
+<div class="viewcode-block" id="Flag"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.Flag">[docs]</a><span class="k">class</span> <span class="nc">Flag</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of each node flag.</span>
+
+<span class="sd">    :cvar EXIT: Exit flag.</span>
+<span class="sd">    :cvar GUARD: Guard flag.</span>
+<span class="sd">    :cvar FAST: Fast flag.</span>
+<span class="sd">    :cvar STABLE: Stable flag.</span>
+<span class="sd">    :cvar V2DIR: V2Dir flag.</span>
+<span class="sd">    :cvar HSDIR: HSDir flag.</span>
+<span class="sd">    :cvar RUNNING: Running flag.</span>
+<span class="sd">    :cvar VALID: Valid flag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">EXIT</span> <span class="o">=</span> <span class="s2">&quot;Exit&quot;</span>
+    <span class="n">GUARD</span> <span class="o">=</span> <span class="s2">&quot;Guard&quot;</span>
+    <span class="n">FAST</span> <span class="o">=</span> <span class="s2">&quot;Fast&quot;</span>
+    <span class="n">STABLE</span> <span class="o">=</span> <span class="s2">&quot;Stable&quot;</span>
+    <span class="n">V2DIR</span> <span class="o">=</span> <span class="s2">&quot;V2Dir&quot;</span>
+    <span class="n">HSDIR</span> <span class="o">=</span> <span class="s2">&quot;HSDir&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;Running&quot;</span>
+    <span class="n">VALID</span> <span class="o">=</span> <span class="s2">&quot;Valid&quot;</span></div>
+
+
+<div class="viewcode-block" id="ExitPolicy"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.ExitPolicy">[docs]</a><span class="k">class</span> <span class="nc">ExitPolicy</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of exit policy summaries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">accept_policy</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">reject_policy</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate `ExitPolicy` object.</span>
+
+<span class="sd">        :param accept_policy: Range of ports to accept.</span>
+<span class="sd">        :param reject_policy: Range of ports to reject.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accept_policy</span> <span class="o">=</span> <span class="n">accept_policy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reject_poilcy</span> <span class="o">=</span> <span class="n">reject_policy</span>
+
+<div class="viewcode-block" id="ExitPolicy.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.ExitPolicy.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate exit policy with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">_parse_policy</span><span class="p">(</span><span class="n">policy</span><span class="p">):</span>
+            <span class="n">port_range</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">policy</span><span class="p">:</span>
+                <span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">chunk</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">port_range</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">port_range</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">chunks</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+            <span class="k">return</span> <span class="n">port_range</span>
+
+        <span class="n">accept_policy</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">reject_policy</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">array</span> <span class="o">:=</span> <span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accept&quot;</span><span class="p">))</span> <span class="p">:</span>
+            <span class="n">accept_policy</span> <span class="o">=</span> <span class="n">_parse_policy</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">array</span> <span class="o">:=</span> <span class="n">json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;reject&quot;</span><span class="p">))</span> <span class="p">:</span>
+            <span class="n">reject_policy</span> <span class="o">=</span> <span class="n">_parse_policy</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">accept_policy</span><span class="p">,</span> <span class="n">reject_policy</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span></div>
+
+
+<div class="viewcode-block" id="RelaySummary"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelaySummary">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RelaySummary</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `relay summary document &lt;https://metrics.torproject.org/onionoo.html#summary_relay&gt;`_.</span>
+
+<span class="sd">    :param nickname: Relay nickname consisting of 1–19 alphanumerical</span>
+<span class="sd">        characters.</span>
+<span class="sd">    :param fingerprint: Relay fingerprint consisting of 40 upper-case</span>
+<span class="sd">        hexadecimal characters.</span>
+<span class="sd">    :param addresses: Array of IPv4 or IPv6 addresses where the relay accepts</span>
+<span class="sd">        onion-routing connections or which the relay used to exit to the</span>
+<span class="sd">        Internet in the past 24 hours. The first address is the primary</span>
+<span class="sd">        onion-routing address that the relay used to register in the network,</span>
+<span class="sd">        subsequent addresses are in arbitrary order.</span>
+<span class="sd">    :param running: Boolean field saying whether this relay was listed as</span>
+<span class="sd">        running in the last relay network status consensus.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">addresses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">running</span><span class="p">:</span> <span class="nb">bool</span>
+
+<div class="viewcode-block" id="RelaySummary.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelaySummary.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a summary document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: RelaySummary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">nickname</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">],</span>
+            <span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">],</span>
+            <span class="n">addresses</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span>
+            <span class="n">running</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BridgeSummary"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeSummary">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BridgeSummary</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge summary document &lt;https://metrics.torproject.org/onionoo.html#summary_bridge&gt;`_.</span>
+
+<span class="sd">    :param nickname: Bridge nickname consisting of 1–19 alphanumerical</span>
+<span class="sd">        characters.</span>
+<span class="sd">    :param hashed_fingerprint: SHA-1 hash of the bridge fingerprint consisting</span>
+<span class="sd">        of 40 upper-case hexadecimal characters.</span>
+<span class="sd">    :param running: Boolean field saying whether this bridge was listed as</span>
+<span class="sd">        running in the last bridge network status.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hashed_fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">running</span><span class="p">:</span> <span class="nb">bool</span>
+
+<div class="viewcode-block" id="BridgeSummary.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeSummary.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a summary document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nickname</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">],</span> <span class="n">hashed_fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;h&quot;</span><span class="p">],</span> <span class="n">running</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;r&quot;</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="RelayDetailsBase"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayDetailsBase">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RelayDetailsBase</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `relay details document &lt;https://metrics.torproject.org/onionoo.html#details_relay&gt;`_.</span>
+
+<span class="sd">    :param nickname: Potential relay nickname consisting of 1–19</span>
+<span class="sd">        alphanumerical characters.</span>
+<span class="sd">    :param fingerprint: Potential relay fingerprint consisting of 40</span>
+<span class="sd">        upper-case hexadecimal characters.</span>
+<span class="sd">    :param or_addresses: Potential array of IPv4 or IPv6 addresses and TCP</span>
+<span class="sd">        ports or port lists where the relay accepts onion-routing connections.</span>
+<span class="sd">        The first address is the primary onion-routing address that the relay</span>
+<span class="sd">        used to register in the network, subsequent addresses are in arbitrary order.</span>
+<span class="sd">    :param last_seen: Potential UTC timestamp when this relay was last seen in</span>
+<span class="sd">        a network status consensus.</span>
+<span class="sd">    :param last_changed_address_or_port: Potential UTC timestamp when this</span>
+<span class="sd">        relay last stopped announcing an IPv4 or IPv6 address or TCP port</span>
+<span class="sd">        where it previously accepted onion-routing or directory connections.</span>
+<span class="sd">    :param first_seen: Potential UTC timestamp when this relay was first seen</span>
+<span class="sd">        in a network status consensus.</span>
+<span class="sd">    :param running: Potential boolean field saying whether this relay was</span>
+<span class="sd">        listed as running in the last relay network status consensus.</span>
+<span class="sd">    :param consensus_weight: Potential weight assigned to this relay by the</span>
+<span class="sd">        directory authorities that clients use in their path selection algorithm.</span>
+<span class="sd">    :param exit_addresses: Array of IPv4 addresses that the relay used to exit</span>
+<span class="sd">        to the Internet in the past 24 hours. :class:`py:None` if array is</span>
+<span class="sd">        empty.</span>
+<span class="sd">    :param dir_address: IPv4 address and TCP port where the relay accepts</span>
+<span class="sd">        directory connections. :class:`py:None` if the relay does not accept</span>
+<span class="sd">        directory connections.</span>
+<span class="sd">    :param hibernating: Boolean field saying whether this relay indicated that</span>
+<span class="sd">        it is hibernating in its last known server descriptor. :class:`py:None`</span>
+<span class="sd">        if either the relay is not hibernating, or if no information is</span>
+<span class="sd">        available about the hibernation status of the relay.</span>
+<span class="sd">    :param flags: Array of relay flags that the directory authorities assigned</span>
+<span class="sd">        to this relay. May be omitted if empty.</span>
+<span class="sd">    :param country: Two-letter lower-case country code as found in a GeoIP</span>
+<span class="sd">        database by resolving the relay&#39;s first onion-routing IP address.</span>
+<span class="sd">        :class:`py:None` if the relay IP address could not be found in the</span>
+<span class="sd">        GeoIP database.</span>
+<span class="sd">    :param country_name: Country name as found in a GeoIP database by</span>
+<span class="sd">        resolving the relay&#39;s first onion-routing IP address. :class:`py:None`</span>
+<span class="sd">        if the relay IP address could not be found in the GeoIP database, or</span>
+<span class="sd">        if the GeoIP database did not contain a country name.</span>
+<span class="sd">    :param region_name: Region name as found in a GeoIP database by resolving</span>
+<span class="sd">        the relay&#39;s first onion-routing IP address. :class:`py:None` if the</span>
+<span class="sd">        relay IP address could not be found in the GeoIP database, or if the</span>
+<span class="sd">        GeoIP database did not contain a region name.</span>
+<span class="sd">    :param city_name: City name as found in a GeoIP database by resolving the</span>
+<span class="sd">        relay&#39;s first onion-routing IP address. :class:`py:None` if the relay IP</span>
+<span class="sd">        address could not be found in the GeoIP database, or if the GeoIP</span>
+<span class="sd">        database did not contain a city name.</span>
+<span class="sd">    :param latitude: Latitude as found in a GeoIP database by resolving the</span>
+<span class="sd">        relay&#39;s first onion-routing IP address. :class:`py:None` if the relay</span>
+<span class="sd">        IP address could not be found in the GeoIP database.</span>
+<span class="sd">    :param longitude: Longitude as found in a GeoIP database by resolving the</span>
+<span class="sd">        relay&#39;s first onion-routing IP address. :class:`py:None` if the relay</span>
+<span class="sd">        IP address could not be found in the GeoIP database.</span>
+<span class="sd">    :param as_: AS number as found in an AS database by resolving the relay&#39;s</span>
+<span class="sd">        first onion-routing IP address. AS number strings start with &quot;AS&quot;,</span>
+<span class="sd">        followed directly by the AS number. :class:`py:None` if the relay IP</span>
+<span class="sd">        address could not be found in the AS</span>
+<span class="sd">        database.</span>
+<span class="sd">    :param as_name: AS name as found in an AS database by resolving the</span>
+<span class="sd">        relay&#39;s first onion-routing IP address. :class:`py:None` if the relay IP</span>
+<span class="sd">        address could not be found in the AS database.</span>
+<span class="sd">    :param verified_host_names: Host names as found in a reverse DNS lookup of</span>
+<span class="sd">        the relay&#39;s primary IP address for which a matching A record was also</span>
+<span class="sd">        found. This field is updated at most once in 12 hours, unless the</span>
+<span class="sd">        relay IP address changes. :class:`py:None` if the relay IP address was</span>
+<span class="sd">        not looked up, if no lookup request was successful yet, or if no A</span>
+<span class="sd">        records were found matching the PTR records.</span>
+<span class="sd">    :param unverified_host_names: Host names as found in a reverse DNS lookup</span>
+<span class="sd">        of the relay&#39;s primary IP address that for which a matching A record</span>
+<span class="sd">        was not found. This field is updated at most once in 12 hours, unless</span>
+<span class="sd">        the relay IP address changes. :class:`py:None` if the relay IP address</span>
+<span class="sd">        was not looked up, if no lookup request was successful yet, or if A</span>
+<span class="sd">        records were found matching all PTR records.</span>
+<span class="sd">    :param last_restarted: UTC timestamp when the relay was last (re-)started.</span>
+<span class="sd">        :class:`py:None` if router descriptor containing this information</span>
+<span class="sd">        cannot be found.</span>
+<span class="sd">    :param bandwidth_rate: Average bandwidth in bytes per second that this</span>
+<span class="sd">        relay is willing to sustain over long periods. :class:`py:None` if</span>
+<span class="sd">        router descriptor containing this information cannot be found.</span>
+<span class="sd">    :param bandwidth_burst: Bandwidth in bytes per second that this relay is</span>
+<span class="sd">        willing to sustain in very short intervals. :class:`py:None` if router</span>
+<span class="sd">        descriptor containing this information cannot be found.</span>
+<span class="sd">    :param observed_bandwidth: Bandwidth estimate in bytes per second of the</span>
+<span class="sd">        capacity this relay can handle. :class:`py:None` if router descriptor</span>
+<span class="sd">        containing this information cannot be found.</span>
+<span class="sd">    :param advertised_bandwidth: Bandwidth in bytes per second that this relay</span>
+<span class="sd">        is willing and capable to provide. :class:`py:None` if router</span>
+<span class="sd">        descriptor containing this information cannot be found.</span>
+<span class="sd">    :param exit_policy: Array of exit-policy lines. :class:`py:None` if router</span>
+<span class="sd">        descriptor containing this information cannot be found.</span>
+<span class="sd">    :param exit_policy_summary: Summary version of the relay&#39;s exit policy.</span>
+<span class="sd">    :param exit_policy_v6_summary: Summary version of the relay&#39;s IPv6 exit</span>
+<span class="sd">        policy.</span>
+<span class="sd">    :param contact: Contact address of the relay operator. :class:`py:None` if</span>
+<span class="sd">        empty or if descriptor containing this information cannot be found.</span>
+<span class="sd">    :param platform: Platform string containing operating system and Tor</span>
+<span class="sd">        version details. :class:`py:None` if empty or if descriptor containing</span>
+<span class="sd">        this information cannot be found.</span>
+<span class="sd">    :param version: Tor software version without leading &quot;Tor&quot; as reported by</span>
+<span class="sd">        the directory authorities in the &quot;v&quot; line of the consensus. :class:`py</span>
+<span class="sd">        None` if either the directory authorities or the relay did not report</span>
+<span class="sd">        which version the relay runs or if the relay runs an alternative Tor</span>
+<span class="sd">        implementation.</span>
+<span class="sd">    :param recommended_version: Boolean field saying whether the Tor software</span>
+<span class="sd">        version of this relay is recommended by the directory authorities or</span>
+<span class="sd">        not. :class:`py:None` if either the directory authorities did not</span>
+<span class="sd">        recommend versions, or the relay did not report which version it runs.</span>
+<span class="sd">    :param version_status: Status of the Tor software version of the relay</span>
+<span class="sd">        based on the versions recommended by the directory authorities.</span>
+<span class="sd">        Possible version statuses are:</span>
+<span class="sd">            - &quot;recommended&quot; if a version is listed as recommended;</span>
+<span class="sd">            - &quot;experimental&quot; if a version is newer than every recommended</span>
+<span class="sd">              version;</span>
+<span class="sd">            - &quot;obsolete&quot; if a version is older than every recommended version;</span>
+<span class="sd">            - &quot;new in series&quot; if a version has other recommended versions with</span>
+<span class="sd">              the same first three components, and the version is newer than</span>
+<span class="sd">              all such recommended versions, but it is not newer than every</span>
+<span class="sd">              recommended version;</span>
+<span class="sd">            - &quot;unrecommended&quot; if none of the above conditions hold.</span>
+<span class="sd">        :class:`python:None` if either the directory authorities did not</span>
+<span class="sd">        recommend versions, or the bridge did not report which version it runs.</span>
+<span class="sd">    :param effective_family: Array of fingerprints of relays that are in an</span>
+<span class="sd">        effective, mutual family relationship with this relay. These relays</span>
+<span class="sd">        are part of this relay&#39;s family and they consider this relay to be</span>
+<span class="sd">        part of their family. Always contains the relay&#39;s own fingerprint.</span>
+<span class="sd">        class:`py:None` if the descriptor containing this information cannot be</span>
+<span class="sd">        found.</span>
+<span class="sd">    :param alleged_family: Array of fingerprints of relays that are not in an</span>
+<span class="sd">        effective, mutual family relationship with this relay. These relays</span>
+<span class="sd">        are part of this relay&#39;s family but they don&#39;t consider this relay to</span>
+<span class="sd">        be part of their family. :class:`py:None` if empty or if descriptor</span>
+<span class="sd">        containing</span>
+<span class="sd">        this information cannot be found.</span>
+<span class="sd">    :param indirect_family: Array of fingerprints of relays that are not in an</span>
+<span class="sd">        effective, mutual family relationship with this relay but that can be</span>
+<span class="sd">        reached by following effective, mutual family relationships starting</span>
+<span class="sd">        at this relay. :class:`py:None` if empty or if descriptor containing</span>
+<span class="sd">        this information cannot be found.</span>
+<span class="sd">    :param consensus_weight_fraction: Fraction of this relay&#39;s consensus</span>
+<span class="sd">        weight compared to the sum of all consensus weights in the network.</span>
+<span class="sd">        This fraction is a very rough approximation of the probability of this</span>
+<span class="sd">        relay to be selected by clients. :class:`py:None` if the relay is not</span>
+<span class="sd">        running.</span>
+<span class="sd">    :param guard_probability: Probability of this relay to be selected for the</span>
+<span class="sd">        guard position. :class:`py:None` if the relay is not running, or the</span>
+<span class="sd">        consensus does not contain bandwidth weights.</span>
+<span class="sd">    :param middle_probability: Probability of this relay to be selected for</span>
+<span class="sd">        the middle position. :class:`py:None` if the relay is not running, or</span>
+<span class="sd">        the consensus does not contain bandwidth weights.</span>
+<span class="sd">    :param exit_probability: Probability of this relay to be selected for the</span>
+<span class="sd">        exit position. :class:`py:None` if the relay is not running, or the</span>
+<span class="sd">        consensus does not contain bandwidth weights.</span>
+<span class="sd">    :param measured: Boolean field saying whether the consensus weight of this</span>
+<span class="sd">        relay is based on a threshold of 3 or more measurements by Tor</span>
+<span class="sd">        bandwidth authorities. :class:`py:None` if the network status consensus</span>
+<span class="sd">        containing this relay does not contain measurement information.</span>
+<span class="sd">    :param unreachable_or_addresses: Array of IPv4 or IPv6 addresses and TCP</span>
+<span class="sd">        ports or port lists where the relay claims in its descriptor to accept</span>
+<span class="sd">        onion-routing connections but that the directory authorities failed to</span>
+<span class="sd">        confirm as reachable. Contains only additional addresses of a relay</span>
+<span class="sd">        that are found unreachable and only as long as a minority of directory</span>
+<span class="sd">        authorities performs reachability tests on these additional addresses.</span>
+<span class="sd">        Relays with an unreachable primary address are not included in the</span>
+<span class="sd">        network status consensus and excluded entirely. Likewise, relays with</span>
+<span class="sd">        unreachable additional addresses tested by a majority of directory</span>
+<span class="sd">        authorities are not included in the network status consensus and</span>
+<span class="sd">        excluded here, too. If at any point network status votes will be added</span>
+<span class="sd">        to the processing, relays with unreachable addresses will be included</span>
+<span class="sd">        here. Addresses are in arbitrary order. IPv6 hex characters are all</span>
+<span class="sd">        lower-case. :class:`py:None` if empty.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">last_changed_address_or_port</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">running</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">consensus_weight</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">exit_addresses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dir_address</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">hibernating</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Flag</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">country</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">country_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">region_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">city_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">as_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">as_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">verified_host_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">unverified_host_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">last_restarted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bandwidth_rate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bandwidth_burst</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">observed_bandwidth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">advertised_bandwidth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">exit_policy</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">exit_policy_summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExitPolicy</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">exit_policy_v6_summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExitPolicy</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">contact</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">platform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">recommended_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">version_status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">effective_family</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">alleged_family</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">indirect_family</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">consensus_weight_fraction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">guard_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">middle_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">exit_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">measured</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">unreachable_or_addresses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="RelayDetails"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayDetails">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RelayDetails</span><span class="p">(</span><span class="n">RelayDetailsBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`RelayDetails` specialisation where all fields had been requested.</span>
+
+<span class="sd">    :param nickname: Relay nickname consisting of 1–19 alphanumerical</span>
+<span class="sd">        characters.</span>
+<span class="sd">    :param fingerprint: Relay fingerprint consisting of 40 upper-case</span>
+<span class="sd">        hexadecimal characters.</span>
+<span class="sd">    :param or_addresses: Array of IPv4 or IPv6 addresses and TCP ports or port</span>
+<span class="sd">        lists where the relay accepts onion-routing connections. The first</span>
+<span class="sd">        address is the primary onion-routing address that the relay used to</span>
+<span class="sd">        register in the network, subsequent addresses are in arbitrary order.</span>
+<span class="sd">    :param last_seen: UTC timestamp when this relay was last seen in a network</span>
+<span class="sd">        status consensus.</span>
+<span class="sd">    :param last_changed_address_or_port: UTC timestamp when this relay last</span>
+<span class="sd">        stopped announcing an IPv4 or IPv6 address or TCP port where it</span>
+<span class="sd">        previously accepted onion-routing or directory connections.</span>
+<span class="sd">    :param first_seen: UTC timestamp when this relay was first seen in a</span>
+<span class="sd">        network status consensus.</span>
+<span class="sd">    :param running: Boolean field saying whether this relay was listed as</span>
+<span class="sd">        running in the last relay network status consensus.</span>
+<span class="sd">    :param consensus_weight: Weight assigned to this relay by the directory</span>
+<span class="sd">        authorities that clients use in their path selection algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">last_changed_address_or_port</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">running</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">consensus_weight</span><span class="p">:</span> <span class="nb">int</span>
+
+<div class="viewcode-block" id="RelayDetails.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayDetails.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a relay details document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;as_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;as&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_seen&quot;</span><span class="p">))</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_changed_address_or_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_changed_address_or_port&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;first_seen&quot;</span><span class="p">))</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">))</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;exit_policy_summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExitPolicy</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exit_policy_summary&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;exit_policy_v6_summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExitPolicy</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exit_policy_v6_summary&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PartialRelayDetails"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.PartialRelayDetails">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PartialRelayDetails</span><span class="p">(</span><span class="n">RelayDetailsBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`RelayDetails` specialisation where only specific fields had been</span>
+<span class="sd">    requested.</span>
+
+<span class="sd">    :param or_addresses: Potential array of IPv4 or IPv6 addresses and TCP</span>
+<span class="sd">        ports or port lists where the relay accepts onion-routing connections.</span>
+<span class="sd">        The first address is the primary onion-routing address that the relay</span>
+<span class="sd">        used to register in the network, subsequent addresses are in arbitrary order.</span>
+<span class="sd">    :param last_seen: Potential UTC timestamp when this relay was last seen in</span>
+<span class="sd">        a network status consensus.</span>
+<span class="sd">    :param last_changed_address_or_port: Potential UTC timestamp when this</span>
+<span class="sd">        relay last stopped announcing an IPv4 or IPv6 address or TCP port</span>
+<span class="sd">        where it previously accepted onion-routing or directory connections.</span>
+<span class="sd">    :param first_seen: Potential UTC timestamp when this relay was first seen</span>
+<span class="sd">        in a network status consensus.</span>
+<span class="sd">    :param running: Potential boolean field saying whether this relay was</span>
+<span class="sd">        listed as running in the last relay network status consensus.</span>
+<span class="sd">    :param consensus_weight: Potential weight assigned to this relay by the</span>
+<span class="sd">        directory authorities that clients use in their path selection algorithm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">last_changed_address_or_port</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">running</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">consensus_weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="PartialRelayDetails.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.PartialRelayDetails.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a relay details document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;as_&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;as_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;as&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;last_seen&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_seen&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s2">&quot;last_changed_address_or_port&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_changed_address_or_port&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_changed_address_or_port&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;last_seen&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;first_seen&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s2">&quot;last_restarted&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s2">&quot;exit_policy_summary&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;exit_policy_summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExitPolicy</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exit_policy_summary&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;exit_policy_v6_summary&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;exit_policy_v6_summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ExitPolicy</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exit_policy_v6_summary&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BridgeDetailsBase"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeDetailsBase">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BridgeDetailsBase</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge details document &lt;https://metrics.torproject.org/onionoo.html#details_bridge&gt;`_.</span>
+
+<span class="sd">    :param nickname: Bridge nickname consisting of 1–19 alphanumerical</span>
+<span class="sd">        characters.</span>
+<span class="sd">    :param hashed_fingerprint: SHA-1 hash of the bridge fingerprint consisting</span>
+<span class="sd">        of 40 upper-case hexadecimal characters.</span>
+<span class="sd">    :param or_addresses: Array of sanitized IPv4 or IPv6 addresses and TCP</span>
+<span class="sd">        ports or port lists where the bridge accepts onion-routing connections.</span>
+<span class="sd">        The first address is the primary onion-routing address that the bridge</span>
+<span class="sd">        used to register in the network, subsequent addresses are in arbitrary</span>
+<span class="sd">        order.</span>
+<span class="sd">    :param last_seen: UTC timestamp when the bridge was last seen in a bridge</span>
+<span class="sd">        network status.</span>
+<span class="sd">    :param first_seen: UTC timestamp when the bridge was first seen in a</span>
+<span class="sd">        bridge network status.</span>
+<span class="sd">    :param running: Boolean field saying whether the bridge was listed as</span>
+<span class="sd">        running in the last bridge network status.</span>
+<span class="sd">    :param flags: Array of relay flags that the bridge authority assigned to</span>
+<span class="sd">        the bridge. :class:`python:None` if empty.</span>
+<span class="sd">    :param last_restarted: UTC timestamp when the bridge was last</span>
+<span class="sd">        (re-)started. :class:`python:None` if router descriptor containing</span>
+<span class="sd">        this information cannot be found.</span>
+<span class="sd">    :param advertised_bandwidth: Bandwidth in bytes per second that the</span>
+<span class="sd">        bridge is willing and capable to provide. The bandwidth value is the</span>
+<span class="sd">        minimum of `bandwidth_rate`, `bandwidth_burst`, and</span>
+<span class="sd">        `observed_bandwidth`. :class:`python:None` if router descriptor</span>
+<span class="sd">        containing this information cannot be found.</span>
+<span class="sd">    :param platform: Platform string containing operating system and Tor</span>
+<span class="sd">        version details. :class:`python:None` if not provided by the bridge or</span>
+<span class="sd">        if descriptor containing this information cannot be found.</span>
+<span class="sd">    :param version: Tor software version without leading &quot;Tor&quot; as reported by</span>
+<span class="sd">        the bridge in the &quot;platform&quot; line of its server descriptor.</span>
+<span class="sd">        :class:`python:None` if not provided by the bridge, if the descriptor</span>
+<span class="sd">        containing this information cannot be found, or if the bridge runs an</span>
+<span class="sd">        alternative Tor implementation.</span>
+<span class="sd">    :param recommended_version: Boolean field saying whether the Tor software</span>
+<span class="sd">        version of the bridge is recommended by the directory authorities or</span>
+<span class="sd">        not. :class:`python:None` if either the directory authorities did not</span>
+<span class="sd">        recommend versions, or the bridge did not report which version it runs.</span>
+<span class="sd">    :param version_status: Status of the Tor software version of the bridge</span>
+<span class="sd">        based on the versions recommended by the directory authorities.</span>
+<span class="sd">        Possible version statuses are:</span>
+<span class="sd">            - &quot;recommended&quot; if a version is listed as recommended;</span>
+<span class="sd">            - &quot;experimental&quot; if a version is newer than every recommended</span>
+<span class="sd">              version;</span>
+<span class="sd">            - &quot;obsolete&quot; if a version is older than every recommended version;</span>
+<span class="sd">            - &quot;new in series&quot; if a version has other recommended versions with</span>
+<span class="sd">              the same first three components, and the version is newer than</span>
+<span class="sd">              all such recommended versions, but it is not newer than every</span>
+<span class="sd">              recommended version;</span>
+<span class="sd">            - &quot;unrecommended&quot; if none of the above conditions hold.</span>
+<span class="sd">        :class:`python:None` if either the directory authorities did not</span>
+<span class="sd">        recommend versions, or the bridge did not report which version it runs.</span>
+<span class="sd">    :param transports: Array of (pluggable) transport names supported by the</span>
+<span class="sd">        bridge.</span>
+<span class="sd">    :param bridgedb_distributor: BridgeDB distributor that the bridge is</span>
+<span class="sd">        currently assigned to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hashed_fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">running</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Flag</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">last_restarted</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">advertised_bandwidth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">platform</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">recommended_version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">version_status</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">transports</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bridgedb_distribtor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BridgeDetailsBase.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeDetailsBase.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a bridge details document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">])</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s2">&quot;last_restarted&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PartialBridgeDetails"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.PartialBridgeDetails">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PartialBridgeDetails</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge details document &lt;https://metrics.torproject.org/onionoo.html#details_bridge&gt;`_</span>
+<span class="sd">    where only specific fields had been requested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">hashed_fingerprint</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="PartialBridgeDetails.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.PartialBridgeDetails.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a bridge details document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;last_seen&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_seen&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s2">&quot;first_seen&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;first_seen&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s2">&quot;last_restarted&quot;</span> <span class="ow">in</span> <span class="n">json</span><span class="p">:</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;last_restarted&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BridgeDetails"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeDetails">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BridgeDetails</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge details document &lt;https://metrics.torproject.org/onionoo.html#details_bridge&gt;`_</span>
+<span class="sd">    where only specific fields had been requested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hashed_fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">or_addresses</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">last_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">first_seen</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span></div>
+
+
+<div class="viewcode-block" id="GraphHistory"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.GraphHistory">[docs]</a><span class="k">class</span> <span class="nc">GraphHistory</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `graph history document &lt;https://metrics.torproject.org/onionoo.html#history_graph&gt;`_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">first</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">,</span>
+        <span class="n">last</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">,</span>
+        <span class="n">interval</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param first: UTC timestamp of the interval midpoint of the first interval.</span>
+<span class="sd">        :param last: UTC timestamp of the interval midpoint of the last interval.</span>
+<span class="sd">        :param interval: Time interval between two datapoints in seconds.</span>
+<span class="sd">        :param factor: Factor by which subsequent data values need to be multiplied</span>
+<span class="sd">            to obtain original values.</span>
+<span class="sd">        :param count: Number of provided data points.</span>
+<span class="sd">        :param values: Array of normalized values between 0 and 999. May contain</span>
+<span class="sd">            null values. Contains at least two subsequent non-null values to</span>
+<span class="sd">            enable drawling of line graphs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first</span> <span class="o">=</span> <span class="n">first</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last</span> <span class="o">=</span> <span class="n">last</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factor</span> <span class="o">=</span> <span class="n">factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+
+<div class="viewcode-block" id="GraphHistory.denormalise"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.GraphHistory.denormalise">[docs]</a>    <span class="k">def</span> <span class="nf">denormalise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Denormalise values, in place, by multiplyling each value by</span>
+<span class="sd">        :py:attr:`self.factor`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">factor</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="GraphHistory.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.GraphHistory.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate graph history document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :returns: the :class:`GraphHistory` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;first&quot;</span><span class="p">))</span>
+        <span class="n">json</span><span class="p">[</span><span class="s2">&quot;last&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">decode_utc</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;last&quot;</span><span class="p">))</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">GraphHistory</span><span class="p">(</span><span class="o">**</span><span class="n">json</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.__class__.__name__}</span><span class="s2">&lt;</span><span class="si">{0.__dict__}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<span class="n">IntervaledHistory</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">GraphHistory</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="intervaled_history_from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.intervaled_history_from_json">[docs]</a><span class="k">def</span> <span class="nf">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IntervaledHistory</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Instantiate intervaled history with JSON response from the API.</span>
+
+<span class="sd">    :param json: Raw JSON response.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">period</span><span class="p">:</span> <span class="n">GraphHistory</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">period</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+
+
+<div class="viewcode-block" id="BandwidthBase"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BandwidthBase">[docs]</a><span class="k">class</span> <span class="nc">BandwidthBase</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bandwidth document &lt;https://metrics.torproject.org/onionoo.html#bandwidth&gt;`_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">write_history</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">read_history</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write_history</span> <span class="o">=</span> <span class="n">write_history</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_history</span> <span class="o">=</span> <span class="n">read_history</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.__class__.__name__}</span><span class="s2">&lt;</span><span class="si">{0.__dict__}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RelayBandwidth"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayBandwidth">[docs]</a><span class="k">class</span> <span class="nc">RelayBandwidth</span><span class="p">(</span><span class="n">BandwidthBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge bandwidth document &lt;https://metrics.torproject.org/onionoo.html#bandwidth_relay&gt;`_.</span>
+
+<span class="sd">    :param fingerprint: Relay fingerprint consisting of 40 upper-case</span>
+<span class="sd">        hexadecimal characters.</span>
+<span class="sd">    :param write_history: Historical observation of the relay&#39;s written bytes</span>
+<span class="sd">        per second. :class:`python:None` if the relay did not provide bandwidth</span>
+<span class="sd">        histories on the required level of detail.</span>
+<span class="sd">    :param read_history: Historical observation of the relay&#39;s read bytes per</span>
+<span class="sd">        second. :class:`python:None` if the relay did not provide bandwidth</span>
+<span class="sd">        histories on the required level of detail.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RelayBandwidth.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayBandwidth.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate :class:`RelayBandwidth` with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: RelayBandwidth</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">write_history</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;write_history&quot;</span><span class="p">])</span>
+        <span class="n">read_history</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;read_history&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span>
+            <span class="n">write_history</span><span class="o">=</span><span class="n">write_history</span><span class="p">,</span>
+            <span class="n">read_history</span><span class="o">=</span><span class="n">read_history</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BridgeBandwidth"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeBandwidth">[docs]</a><span class="k">class</span> <span class="nc">BridgeBandwidth</span><span class="p">(</span><span class="n">BandwidthBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge bandwidth document &lt;https://metrics.torproject.org/onionoo.html#bandwidth_bridge&gt;`_.</span>
+
+<span class="sd">    :param fingerprint: SHA-1 hash of the bridge fingerprint consisting of 40</span>
+<span class="sd">        upper-case hexadecimal characters.</span>
+<span class="sd">    :param write_history: Historical observation of the bridge&#39;s written bytes.</span>
+<span class="sd">        :class:`python:None` if the relay did not provide bandwidth histories</span>
+<span class="sd">        on the required level of detail.</span>
+<span class="sd">    :param read_history: Historical observation of the bridges&#39;s read bytes.</span>
+<span class="sd">        :class:`python:None` if the relay did not provide bandwidth histories</span>
+<span class="sd">        on the required level of detail.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BridgeBandwidth.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeBandwidth.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate :class:`BridgeBandwidth` with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: BridgeBandwidth</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">write_history</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;write_history&quot;</span><span class="p">])</span>
+        <span class="n">read_history</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;read_history&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span>
+            <span class="n">write_history</span><span class="o">=</span><span class="n">write_history</span><span class="p">,</span>
+            <span class="n">read_history</span><span class="o">=</span><span class="n">read_history</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RelayWeight"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayWeight">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RelayWeight</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `relay weight document &lt;https://metrics.torproject.org/onionoo.html#weights_relay&gt;`_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">consensus_weight_fraction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">guard_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">middle_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">exit_probability</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">consensus_weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param fingerprint: Relay fingerprint consisting of 40 upper-case</span>
+<span class="sd">            hexadecimal characters.</span>
+<span class="sd">        :param consensus_weight_fraction: Historical observation of the relay&#39;s</span>
+<span class="sd">            consensus weight compared to the sum of all consensus weights in the network.</span>
+<span class="sd">        :param guard_probability: Historical observation of the the relay&#39;s</span>
+<span class="sd">            probability to be selected for guard position.</span>
+<span class="sd">        :param middle_probability: Historical observation of the the relay&#39;s</span>
+<span class="sd">            probability to be selected for middle position.</span>
+<span class="sd">        :param exit_probability: Historical observation of the the relay&#39;s</span>
+<span class="sd">            probability to be selected for exit position.</span>
+<span class="sd">        :param consensus_weight: Historical observation of the absolute consensus</span>
+<span class="sd">            weight of the relay.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consensus_weight_fraction</span> <span class="o">=</span> <span class="n">consensus_weight_fraction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guard_probability</span> <span class="o">=</span> <span class="n">guard_probability</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">middle_probability</span> <span class="o">=</span> <span class="n">middle_probability</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_probability</span> <span class="o">=</span> <span class="n">exit_probability</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">consensus_weight</span> <span class="o">=</span> <span class="n">consensus_weight</span>
+
+<div class="viewcode-block" id="RelayWeight.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayWeight.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a weight document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :returns: :class:`RelayWeight` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">consensus_weight_frac</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span>
+            <span class="n">json</span><span class="p">[</span><span class="s2">&quot;consensus_weight_fraction&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">guard_prob</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;guard_probability&quot;</span><span class="p">])</span>
+        <span class="n">middle_prob</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;middle_probability&quot;</span><span class="p">])</span>
+        <span class="n">exit_prob</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;exit_probability&quot;</span><span class="p">])</span>
+        <span class="n">consensus_weight</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;consensus_weight&quot;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span>
+            <span class="n">consensus_weight_fraction</span><span class="o">=</span><span class="n">consensus_weight_frac</span><span class="p">,</span>
+            <span class="n">guard_probability</span><span class="o">=</span><span class="n">guard_prob</span><span class="p">,</span>
+            <span class="n">middle_probability</span><span class="o">=</span><span class="n">middle_prob</span><span class="p">,</span>
+            <span class="n">exit_probability</span><span class="o">=</span><span class="n">exit_prob</span><span class="p">,</span>
+            <span class="n">consensus_weight</span><span class="o">=</span><span class="n">consensus_weight</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.__class__.__name__}</span><span class="s2">&lt;</span><span class="si">{0.__dict__}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BridgeClients"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeClients">[docs]</a><span class="k">class</span> <span class="nc">BridgeClients</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge clients document &lt;https://metrics.torproject.org/onionoo.html#clients_bridge&gt;`_.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">average_clients</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param fingerprint: SHA-1 hash of the bridge fingerprint consisting of 40</span>
+<span class="sd">            upper-case hexadecimal characters.</span>
+<span class="sd">        :param average_clients: Historical observation of average number of</span>
+<span class="sd">            clients connecting to the bridge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_clients</span> <span class="o">=</span> <span class="n">average_clients</span>
+
+<div class="viewcode-block" id="BridgeClients.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeClients.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a clients document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: BridgeClients</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">average_clients</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;average_clients&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span> <span class="n">average_clients</span><span class="o">=</span><span class="n">average_clients</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RelayUptime"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayUptime">[docs]</a><span class="k">class</span> <span class="nc">RelayUptime</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `relay uptime document &lt;https://metrics.torproject.org/onionoo.html#uptime_relay&gt;`_.</span>
+
+<span class="sd">    :param fingerprint: Relay fingerprint consisting of 40 upper-case</span>
+<span class="sd">        hexadecimal characters.</span>
+<span class="sd">    :param uptime: Historical observation of fractional uptime of the relay.</span>
+<span class="sd">    :param flags: Historical observation of flag assignment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">uptime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">flags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Flag</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="RelayUptime.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.RelayUptime.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a relay uptime document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: RelayUptime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">uptime</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;uptime&quot;</span><span class="p">])</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">Flag</span><span class="p">(</span><span class="n">flag</span><span class="p">):</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">history</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">flag</span><span class="p">,</span> <span class="n">history</span> <span class="ow">in</span> <span class="n">json</span><span class="p">[</span><span class="s2">&quot;flags&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span> <span class="n">uptime</span><span class="o">=</span><span class="n">uptime</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.__class__.__name__}</span><span class="s2">&lt;</span><span class="si">{0.__dict__}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BridgeUptime"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeUptime">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BridgeUptime</span><span class="p">(</span><span class="n">Deserialisable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the `bridge uptime document &lt;https://metrics.torproject.org/onionoo.html#uptime_bridge&gt;`_.</span>
+
+<span class="sd">    :param fingerprint: SHA-1 hash of the bridge fingerprint consisting of 40</span>
+<span class="sd">        upper-case hexadecimal characters.</span>
+<span class="sd">    :param uptime: Historical observation of the fractional uptime of the relay.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fingerprint</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">uptime</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">IntervaledHistory</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BridgeUptime.from_json"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.BridgeUptime.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instantiate a relay uptime document with JSON response from the API.</span>
+
+<span class="sd">        :param json: Raw JSON response.</span>
+<span class="sd">        :rtype: RelayUptime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">uptime</span> <span class="o">=</span> <span class="n">intervaled_history_from_json</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;uptime&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">fingerprint</span><span class="o">=</span><span class="n">json</span><span class="p">[</span><span class="s2">&quot;fingerprint&quot;</span><span class="p">],</span> <span class="n">uptime</span><span class="o">=</span><span class="n">uptime</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">{0.__class__.__name__}</span><span class="s2">&lt;</span><span class="si">{0.__dict__}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<span class="n">RelayDescriptor</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">RelaySummary</span><span class="p">,</span>
+    <span class="n">PartialRelayDetails</span><span class="p">,</span>
+    <span class="n">RelayDetails</span><span class="p">,</span>
+    <span class="n">RelayBandwidth</span><span class="p">,</span>
+    <span class="n">RelayWeight</span><span class="p">,</span>
+    <span class="n">RelayUptime</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">BridgeDescriptor</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">BridgeSummary</span><span class="p">,</span>
+    <span class="n">PartialBridgeDetails</span><span class="p">,</span>
+    <span class="n">BridgeDetails</span><span class="p">,</span>
+    <span class="n">BridgeBandwidth</span><span class="p">,</span>
+    <span class="n">BridgeClients</span><span class="p">,</span>
+    <span class="n">BridgeUptime</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<div class="viewcode-block" id="ResponseBase"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.ResponseBase">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ResponseBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Representation of the API `response &lt;https://metrics.torproject.org/onionoo.html#responses&gt;`_.</span>
+
+<span class="sd">    :param version: Onionoo protocol version string.</span>
+<span class="sd">    :param next_major_version_scheduled: UTC date when the next major protocol</span>
+<span class="sd">        version is scheduled to be deployed. :class:`python:None` if no major</span>
+<span class="sd">        protocol changes are planned.</span>
+<span class="sd">    :param build_revision: Git revision of the Onionoo instance&#39;s software</span>
+<span class="sd">        used to write the response. :class:`python:None` if unknown.</span>
+<span class="sd">    :param relays_published: UTC timestamp when the last known relay network</span>
+<span class="sd">        status consensus started being valid.</span>
+<span class="sd">    :param relays_skipped: Number of skipped relays as requested by a positive</span>
+<span class="sd">        &quot;offset&quot; parameter value.</span>
+<span class="sd">    :param relays: Potentially deserialised :class:`RelayDescriptor` objects.</span>
+<span class="sd">    :param relays_truncated: Number of truncated relays as requested by a</span>
+<span class="sd">        positive &quot;limit&quot; parameter value.</span>
+<span class="sd">    :param bridges_skipped: Number of skipped bridges as requested by a</span>
+<span class="sd">        positive &quot;offset&quot; parameter value.</span>
+<span class="sd">    :param bridges: Potentially deserialised :class:`BridgeDescriptor` objects.</span>
+<span class="sd">    :param bridges_truncated: Number of truncated bridges as requested by a</span>
+<span class="sd">        positive &quot;limit&quot; parameter value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">relays_published</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">bridges_published</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span>
+    <span class="n">relays</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">bridges</span><span class="p">:</span> <span class="kc">None</span>
+    <span class="n">next_major_version_scheduled</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">build_revision</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">relays_skipped</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">relays_truncated</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bridges_skipped</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bridges_truncated</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="PartialRawResponse"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.PartialRawResponse">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PartialRawResponse</span><span class="p">(</span><span class="n">ResponseBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`ResponseBase` specialisation with serialised `relays` and</span>
+<span class="sd">    `bridges`.</span>
+
+<span class="sd">    :param relays: Serialised relay documents.</span>
+<span class="sd">    :param bridges: Serialised bridge documents.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">relays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>
+    <span class="n">bridges</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../autogen/garlic.types.html#garlic.types.Response">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Response</span><span class="p">(</span><span class="n">ResponseBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :class:`ResponseBase` specialisation with deserialised `relays` and</span>
+<span class="sd">    `bridges`.</span>
+
+<span class="sd">    :param relays: Deserialised relay documents.</span>
+<span class="sd">    :type relays: RelayDescriptor</span>
+<span class="sd">    :param bridges: Deserialised bridge documents.</span>
+<span class="sd">    :type bridges: BridgeDescriptor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">relays</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">RelayDescriptor</span><span class="p">]</span>
+    <span class="n">bridges</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BridgeDescriptor</span><span class="p">]</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, birb007.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.1.
+    </div>
+  </body>
+</html>

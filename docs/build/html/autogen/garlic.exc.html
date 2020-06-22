@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>garlic.exc &#8212; garlic  documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="garlic.utils" href="garlic.utils.html" />
+    <link rel="prev" title="garlic.types" href="garlic.types.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">garlic  documentation</a> &#187;</li>
+          <li><a href="garlic.html" accesskey="U">Garlic</a> &#187;</li> 
+      </ul>
+    </div>
+    
+        <div class="badge">
+            <a href="https://github.com/birb007/garlic/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-garlic.exc">
+<span id="garlic-exc"></span><h1>garlic.exc<a class="headerlink" href="#module-garlic.exc" title="Permalink to this headline">¶</a></h1>
+<p>Implementation of exceptions</p>
+<p>..currentmodule:: garlic.exc</p>
+<p class="rubric">Exceptions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#garlic.exc.BadRequest" title="garlic.exc.BadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BadRequest</span></code></a>(response)</p></td>
+<td><p>400 Bad Request: The request for a known resource could not be processed because of bad syntax.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#garlic.exc.HTTPError" title="garlic.exc.HTTPError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HTTPError</span></code></a>(response)</p></td>
+<td><p>Base exception for all HTTP related errors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#garlic.exc.InternalServerError" title="garlic.exc.InternalServerError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InternalServerError</span></code></a>(response)</p></td>
+<td><p>500 Internal Server Error: There is an unspecific problem with the server which the service operator may not yet be aware of.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#garlic.exc.NotFound" title="garlic.exc.NotFound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotFound</span></code></a>(response)</p></td>
+<td><p>404 Not Available: The request could not be processed because the requested resource could not be found.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#garlic.exc.ServiceUnavailable" title="garlic.exc.ServiceUnavailable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServiceUnavailable</span></code></a>(response)</p></td>
+<td><p>503 Service Unavailable: The server is temporarily down for maintenance, or there is a temporary problem with the server that the service operator is already aware of.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt id="garlic.exc.HTTPError">
+<em class="property">exception </em><code class="sig-prename descclassname">garlic.exc.</code><code class="sig-name descname">HTTPError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/exc.html#HTTPError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.exc.HTTPError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base exception for all HTTP related errors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – Response object accompanying the http error.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.exc.HTTPError.with_traceback">
+<code class="sig-name descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#garlic.exc.HTTPError.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="garlic.exc.BadRequest">
+<em class="property">exception </em><code class="sig-prename descclassname">garlic.exc.</code><code class="sig-name descname">BadRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/exc.html#BadRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.exc.BadRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#garlic.exc.HTTPError" title="garlic.exc.HTTPError"><code class="xref py py-class docutils literal notranslate"><span class="pre">garlic.exc.HTTPError</span></code></a></p>
+<p>400 Bad Request: The request for a known resource could not be processed
+because of bad syntax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>asks.response_objects.Response</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.exc.BadRequest.with_traceback">
+<code class="sig-name descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#garlic.exc.BadRequest.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="garlic.exc.NotFound">
+<em class="property">exception </em><code class="sig-prename descclassname">garlic.exc.</code><code class="sig-name descname">NotFound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/exc.html#NotFound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.exc.NotFound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#garlic.exc.HTTPError" title="garlic.exc.HTTPError"><code class="xref py py-class docutils literal notranslate"><span class="pre">garlic.exc.HTTPError</span></code></a></p>
+<p>404 Not Available: The request could not be processed because the
+requested resource could not be found.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>asks.response_objects.Response</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.exc.NotFound.with_traceback">
+<code class="sig-name descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#garlic.exc.NotFound.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="garlic.exc.InternalServerError">
+<em class="property">exception </em><code class="sig-prename descclassname">garlic.exc.</code><code class="sig-name descname">InternalServerError</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/exc.html#InternalServerError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.exc.InternalServerError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#garlic.exc.HTTPError" title="garlic.exc.HTTPError"><code class="xref py py-class docutils literal notranslate"><span class="pre">garlic.exc.HTTPError</span></code></a></p>
+<p>500 Internal Server Error: There is an unspecific problem with the server
+which the service operator may not yet be aware of.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>asks.response_objects.Response</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.exc.InternalServerError.with_traceback">
+<code class="sig-name descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#garlic.exc.InternalServerError.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="garlic.exc.ServiceUnavailable">
+<em class="property">exception </em><code class="sig-prename descclassname">garlic.exc.</code><code class="sig-name descname">ServiceUnavailable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/exc.html#ServiceUnavailable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.exc.ServiceUnavailable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#garlic.exc.HTTPError" title="garlic.exc.HTTPError"><code class="xref py py-class docutils literal notranslate"><span class="pre">garlic.exc.HTTPError</span></code></a></p>
+<p>503 Service Unavailable: The server is temporarily down for maintenance,
+or there is a temporary problem with the server that the service operator
+is already aware of.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<em>asks.response_objects.Response</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.exc.ServiceUnavailable.with_traceback">
+<code class="sig-name descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#garlic.exc.ServiceUnavailable.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="garlic.types.html"
+                        title="previous chapter">garlic.types</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="garlic.utils.html"
+                        title="next chapter">garlic.utils</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/autogen/garlic.exc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="garlic.utils.html" title="garlic.utils"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="garlic.types.html" title="garlic.types"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, birb007.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.1.
+    </div>
+  </body>
+</html>

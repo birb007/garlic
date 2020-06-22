@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>garlic.client &#8212; garlic  documentation</title>
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    
+    <script src="../_static/sidebar.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="garlic.types" href="garlic.types.html" />
+    <link rel="prev" title="Garlic" href="garlic.html" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="shortcut icon" type="image/png" href="../_static/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    
+    
+
+  </head><body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="responsive-menu"><a href="#sidebar-anchor" title="Navigation">&#9776;</a></li>
+        <li><a href="../index.html">garlic  documentation</a> &#187;</li>
+          <li><a href="garlic.html" accesskey="U">Garlic</a> &#187;</li> 
+      </ul>
+    </div>
+    
+        <div class="badge">
+            <a href="https://github.com/birb007/garlic/">Fork me on GitHub</a>
+            <img src="../_static/right-red@2x.png">
+        </div>
+    
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-garlic.client">
+<span id="garlic-client"></span><h1>garlic.client<a class="headerlink" href="#module-garlic.client" title="Permalink to this headline">¶</a></h1>
+<p>Implementation of <a class="reference internal" href="#garlic.client.Client" title="garlic.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a>.</p>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#garlic.client.deserialise_response" title="garlic.client.deserialise_response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deserialise_response</span></code></a>(response[, relay_obj, …])</p></td>
+<td><p>Deserialise API response using bridge/relay deserialisation objects.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#garlic.client.onionoo_parameterised" title="garlic.client.onionoo_parameterised"><code class="xref py py-obj docutils literal notranslate"><span class="pre">onionoo_parameterised</span></code></a>([restrict])</p></td>
+<td><p>Handle generic passing of parameters to direct API functions.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cache</span></code>(factory[, enable_cache, ttl, enable])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#garlic.client.Client" title="garlic.client.Client"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Client</span></code></a>([max_retries, timeout, enable_cache, …])</p></td>
+<td><p>Object to request resources from the Onionoo API.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#garlic.client.ContentNotChanged" title="garlic.client.ContentNotChanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ContentNotChanged</span></code></a>(response)</p></td>
+<td><p>HTTP response for 403 occurence when If-Modified-Since header is set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#garlic.client.Endpoint" title="garlic.client.Endpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Endpoint</span></code></a>(value)</p></td>
+<td><p>Representation of API endpoints.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="garlic.client.ContentNotChanged">
+<em class="property">class </em><code class="sig-prename descclassname">garlic.client.</code><code class="sig-name descname">ContentNotChanged</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#ContentNotChanged"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.ContentNotChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>HTTP response for 403 occurence when If-Modified-Since header is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – HTTP response.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="garlic.client.deserialise_response">
+<code class="sig-prename descclassname">garlic.client.</code><code class="sig-name descname">deserialise_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">response</span></em>, <em class="sig-param"><span class="n">relay_obj</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">bridge_obj</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#deserialise_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.deserialise_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deserialise API response using bridge/relay deserialisation objects.
+Optionally return raw http response if <a class="reference internal" href="#garlic.client.ContentNotChanged" title="garlic.client.ContentNotChanged"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentNotChanged</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a>, <a class="reference internal" href="garlic.types.html#garlic.types.PartialRawResponse" title="garlic.types.PartialRawResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialRawResponse</span></code></a>, <a class="reference internal" href="#garlic.client.ContentNotChanged" title="garlic.client.ContentNotChanged"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentNotChanged</span></code></a>]) – API response.</p></li>
+<li><p><strong>relay_obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="garlic.types.html#garlic.types.Deserialisable" title="garlic.types.Deserialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deserialisable</span></code></a>]) – Object to deserialise array of relay descriptors into.</p></li>
+<li><p><strong>bridge_obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="garlic.types.html#garlic.types.Deserialisable" title="garlic.types.Deserialisable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deserialisable</span></code></a>]) – Object to deserialise array of bridge descriptors into.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Serialised response or raw HTTP response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="garlic.client.onionoo_parameterised">
+<code class="sig-prename descclassname">garlic.client.</code><code class="sig-name descname">onionoo_parameterised</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">restrict</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#onionoo_parameterised"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.onionoo_parameterised" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle generic passing of parameters to direct API functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>restrict</strong> (<em>Set</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="garlic.client.Endpoint">
+<em class="property">class </em><code class="sig-prename descclassname">garlic.client.</code><code class="sig-name descname">Endpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Representation of API endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BASE</strong> – API base endpoint.</p></li>
+<li><p><strong>SUMMARY</strong> – Summary document endpoint.</p></li>
+<li><p><strong>DETAILS</strong> – Details document endpoint.</p></li>
+<li><p><strong>BANDWIDTH</strong> – Bandwidth document endpoint.</p></li>
+<li><p><strong>WEIGHTS</strong> – Weights document endpoint.</p></li>
+<li><p><strong>CLIENTS</strong> – Clients document endpoint.</p></li>
+<li><p><strong>UPTIME</strong> – Uptime document endpoint.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="garlic.client.Client">
+<em class="property">class </em><code class="sig-prename descclassname">garlic.client.</code><code class="sig-name descname">Client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_retries</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">60</span></em>, <em class="sig-param"><span class="n">enable_cache</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">cache_ttl</span><span class="o">=</span><span class="default_value">3600</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Object to request resources from the Onionoo API.</p>
+<p>Instantiate object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_retries</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Maximum number of requests to the API per resource
+before bailing.</p></li>
+<li><p><strong>timeout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Timeout for each request before issuing another
+request.</p></li>
+<li><p><strong>enable_cache</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – Enable request caching.</p></li>
+<li><p><strong>cache_ttl</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Lifetime of each cache entry (seconds).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="garlic.client.Client._request">
+<em class="property">async </em><code class="sig-name descname">_request</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verb</span></em>, <em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client._request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client._request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Issue request to Onionoo API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>verb</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – HTTP verb.</p></li>
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Destination URL.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.PartialRawResponse" title="garlic.types.PartialRawResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">PartialRawResponse</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_summary">
+<em class="property">async </em><code class="sig-name descname">get_summary</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get summary document from API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in the given
+country as identified by a two-letter country code. Filtering by
+country code is case-insensitive. The special country code xz can
+be used for relays that were not found in the GeoIP database.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>flag</strong> (<a class="reference internal" href="garlic.types.html#garlic.types.Flag" title="garlic.types.Flag"><em>Flag</em></a>) – Return only relays which have the given relay flag
+assigned by the directory authorities.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>contact</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value matching
+(part of) the contact line. If the parameter value contains spaces,
+only relays are returned which contain all space-separated parts
+in their contact line.</p></li>
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay whose fingerprint matches the
+parameter value and all relays that this relay has listed in its
+family by fingerprint and that in turn have listed this relay in
+their family by fingerprint.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>host_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with a domain name ending in the
+given (partial) host name. Searches for subdomains of a specific
+domain should ideally be prefixed with a period, for example:
+“.csail.mit.edu”.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_details">
+<em class="property">async </em><code class="sig-name descname">get_details</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get (partial)details document from API. Partial details are returned
+if the <cite>fields</cite> argument is applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in the given
+country as identified by a two-letter country code. Filtering by
+country code is case-insensitive. The special country code xz can
+be used for relays that were not found in the GeoIP database.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>flag</strong> (<a class="reference internal" href="garlic.types.html#garlic.types.Flag" title="garlic.types.Flag"><em>Flag</em></a>) – Return only relays which have the given relay flag
+assigned by the directory authorities.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>contact</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value matching
+(part of) the contact line. If the parameter value contains spaces,
+only relays are returned which contain all space-separated parts
+in their contact line.</p></li>
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay whose fingerprint matches the
+parameter value and all relays that this relay has listed in its
+family by fingerprint and that in turn have listed this relay in
+their family by fingerprint.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>host_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with a domain name ending in the
+given (partial) host name. Searches for subdomains of a specific
+domain should ideally be prefixed with a period, for example:
+“.csail.mit.edu”.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>fields</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Tuple of specific fields to return for each
+bridge/relay descriptor object.</p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_bandwidth">
+<em class="property">async </em><code class="sig-name descname">get_bandwidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_bandwidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_bandwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get bandwidth document from API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in the given
+country as identified by a two-letter country code. Filtering by
+country code is case-insensitive. The special country code xz can
+be used for relays that were not found in the GeoIP database.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>flag</strong> (<a class="reference internal" href="garlic.types.html#garlic.types.Flag" title="garlic.types.Flag"><em>Flag</em></a>) – Return only relays which have the given relay flag
+assigned by the directory authorities.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>contact</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value matching
+(part of) the contact line. If the parameter value contains spaces,
+only relays are returned which contain all space-separated parts
+in their contact line.</p></li>
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay whose fingerprint matches the
+parameter value and all relays that this relay has listed in its
+family by fingerprint and that in turn have listed this relay in
+their family by fingerprint.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>host_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with a domain name ending in the
+given (partial) host name. Searches for subdomains of a specific
+domain should ideally be prefixed with a period, for example:
+“.csail.mit.edu”.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_weights">
+<em class="property">async </em><code class="sig-name descname">get_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get weights document from API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in the given
+country as identified by a two-letter country code. Filtering by
+country code is case-insensitive. The special country code xz can
+be used for relays that were not found in the GeoIP database.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>flag</strong> (<a class="reference internal" href="garlic.types.html#garlic.types.Flag" title="garlic.types.Flag"><em>Flag</em></a>) – Return only relays which have the given relay flag
+assigned by the directory authorities.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>contact</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value matching
+(part of) the contact line. If the parameter value contains spaces,
+only relays are returned which contain all space-separated parts
+in their contact line.</p></li>
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay whose fingerprint matches the
+parameter value and all relays that this relay has listed in its
+family by fingerprint and that in turn have listed this relay in
+their family by fingerprint.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>host_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with a domain name ending in the
+given (partial) host name. Searches for subdomains of a specific
+domain should ideally be prefixed with a period, for example:
+“.csail.mit.edu”.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_clients">
+<em class="property">async </em><code class="sig-name descname">get_clients</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_clients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_clients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get clients document from API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="garlic.client.Client.get_uptime">
+<em class="property">async </em><code class="sig-name descname">get_uptime</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/garlic/client.html#Client.get_uptime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#garlic.client.Client.get_uptime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get uptime document from API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Specify to return only “relay” or “bridge”
+descriptors.</p></li>
+<li><p><strong>running</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only <cite>running</cite> bridges/or relays.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay with the parameter value
+matching
+the fingerprint or the bridge with the parameter value matching
+the hashed fingerprint.</p></li>
+<li><p><strong>country</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in the given
+country as identified by a two-letter country code. Filtering by
+country code is case-insensitive. The special country code xz can
+be used for relays that were not found in the GeoIP database.</p></li>
+<li><p><strong>as</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays which are located in either one of
+the given autonomous systems (AS) as identified by AS number (with
+or without preceding “AS” part). Multiple AS numbers can be
+provided separated by commas. Filtering by AS number is case
+insensitive.  The special AS number 0 can be used for relays that
+were not found in the GeoIP database.</p></li>
+<li><p><strong>as_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value
+matching part of) the autonomous system (AS) name they are located
+in. If the parameter value contains spaces, only relays are
+returned which contain all space-separated parts in their AS
+name.</p></li>
+<li><p><strong>flag</strong> (<a class="reference internal" href="garlic.types.html#garlic.types.Flag" title="garlic.types.Flag"><em>Flag</em></a>) – Return only relays which have the given relay flag
+assigned by the directory authorities.</p></li>
+<li><p><strong>first_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+first been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have first
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>last_seen_days</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges which have
+last been seen during the given range of days ago. A parameter
+value “x-y” with x &lt;= y returns relays or bridges that have last
+been seen at least x and at most y days ago. Accepted short forms
+are “x”, “x-“, and “-y” which are interpreted as “x-x”,
+“x-infinity”, and “0-y”.</p></li>
+<li><p><strong>contact</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with the parameter value matching
+(part of) the contact line. If the parameter value contains spaces,
+only relays are returned which contain all space-separated parts
+in their contact line.</p></li>
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only the relay whose fingerprint matches the
+parameter value and all relays that this relay has listed in its
+family by fingerprint and that in turn have listed this relay in
+their family by fingerprint.</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running either Tor
+version from a list or range given in the parameter value. Tor
+versions must be provided without the leading “Tor” part. Multiple
+versions can either be provided as a comma-separated list (“,”),
+as a range separated by two dots (“..”), or as a list of
+ranges.</p></li>
+<li><p><strong>os</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays or bridges running on an operating
+system that starts with the parameter value.</p></li>
+<li><p><strong>host_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Return only relays with a domain name ending in the
+given (partial) host name. Searches for subdomains of a specific
+domain should ideally be prefixed with a period, for example:
+“.csail.mit.edu”.</p></li>
+<li><p><strong>recommended_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Return only relays and bridges
+running a Tor software version that is recommended if
+<cite>recommended_version</cite></p></li>
+<li><p><strong>order</strong> (<em>Tuple</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>]</em>) – Re-order results by a comma-separated list of
+fields in ascending or descending order. Results are first ordered
+by the first list element, then by the second, and so on. Possible
+fields for ordering are: consensus_weight and first_seen. Field
+names are case-insensitive. Ascending order is the default;
+descending order is selected by prepending fields with a minus
+sign (-). Field names can be listed at most once in either
+ascending or descending order. Relays or bridges which don’t have
+any value for a field to be ordered by are always appended to the
+end, regardless or sorting order.</p></li>
+<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Skip the given number of relays and/or bridges.
+Relays are skipped first, then bridges.</p></li>
+<li><p><strong>limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Limit result to the given number of relays and/or
+bridges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="garlic.types.html#garlic.types.Response" title="garlic.types.Response"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+    <a id="sidebar-anchor"></a>
+    
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="garlic.html"
+                        title="previous chapter">Garlic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="garlic.types.html"
+                        title="next chapter">garlic.types</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/autogen/garlic.client.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="garlic.types.html" title="garlic.types"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="garlic.html" title="Garlic"
+             accesskey="P">previous</a> |</li>
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, birb007.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.1.
+    </div>
+  </body>
+</html>

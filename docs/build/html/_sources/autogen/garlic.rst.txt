@@ -1,0 +1,4 @@
+Garlic
+======
+
+.. automodule:: garlic
