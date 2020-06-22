@@ -197,7 +197,7 @@ class Client:
         self,
         max_retries: int = 5,
         timeout: int = 60,
-        enable_cache: bool = True,
+        enable_cache: bool = False,
         cache_ttl: int = 3600,
     ):
         """
