@@ -667,7 +667,7 @@ class GraphHistory(Deserialisable):
         self,
         first: dt.datetime,
         last: dt.datetime,
-        interval: int,
+        interval: dt.timedelta,
         factor: float,
         values: List[int],
         count: Optional[int] = None,
@@ -707,6 +707,7 @@ class GraphHistory(Deserialisable):
         """
         json["first"] = utils.decode_utc(json.pop("first"))
         json["last"] = utils.decode_utc(json.pop("last"))
+        json["interval"] = dt.timedelta(seconds=json.pop("interval"))
         obj = GraphHistory(**json)
         return obj
 
